@@ -1,5 +1,5 @@
 {
-  "name": "quant",
+  "name": "coinapi_nodejs_demo",
   "version": "0.1.0",
   "author": "LeadNexus",
   "description": "NodeJS获取BitCoin API后写入数据库或json文件",
