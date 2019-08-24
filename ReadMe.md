@@ -1,0 +1,4 @@
+isntall
+ ```
+ npm install mysql
+ ```
