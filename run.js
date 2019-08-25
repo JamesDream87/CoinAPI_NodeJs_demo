@@ -1,10 +1,10 @@
 function RunInit () {
   const https = require('https');
-
+  var config = require('./config.js')
   var base = '/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/history?'
   var period = '1Day'
-  var start = '2013-03-03T00:00:00'
-  var end = '2013-03-04T00:00:00'
+  // var start = getDay(-1, '-')
+  // var end = new Date().toLocaleDateString()
   var limit = 1
   var split = ''
 
@@ -17,9 +17,9 @@ function RunInit () {
   var options = {
     "method": "GET",
     "hostname": "rest.coinapi.io",
-    "path": split || '/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/history?period_id=1Day&time_start=2013-03-04T00:00:00&time_end=2019-08-24T00:00:00&limit=2500',
+    "path": split || '/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/history?period_id=1Day&time_start=2013-03-04T00:00:00&time_end=2013-03-24T00:00:00&limit=2500',
     // "path": '/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/history?period_id=1Day&time_start=2013-02-24T00:00:00&time_end=2019-08-24T00:00:00&limit=2500',
-    "headers": {'X-CoinAPI-Key': '73034021-0EBC-493D-8A00-E0F138111F41'}
+    "headers": {'X-CoinAPI-Key': config.config[0].key}
   };
 
   var request = https.request(options, function (response) {
@@ -94,7 +94,7 @@ function WriteSQL (data) {
   }
   connection.end();
 }
-
+// 写入记录
 function WirteLog (result) {
   var fs = require("fs");
   result.WriteTime = new Date()
@@ -103,6 +103,19 @@ function WirteLog (result) {
         return console.error(err);
     }
   })
+}
+// 获取日期
+function getDay(num, str) {
+  var today = new Date();
+  var nowTime = today.getTime();
+  var ms = 24*3600*1000*num;
+  today.setTime(parseInt(nowTime + ms));
+  var oYear = today.getFullYear();
+  var oMoth = (today.getMonth() + 1).toString();
+  if (oMoth.length <= 1) oMoth = '0' + oMoth;
+  var oDay = today.getDate().toString();
+  if (oDay.length <= 1) oDay = '0' + oDay;
+  return oYear + str + oMoth + str + oDay;
 }
 
 execute(RunInit)
