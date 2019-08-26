@@ -8,7 +8,7 @@ function RunInit () {
   // var end = '2019-01-01T00:00:00'
   var start = getDay(-1, '-')
   var end = getDay(0, '-')
-  var limit = 8670
+  var limit = 1
 
   var request = https.request({
     "method": "GET",
@@ -21,11 +21,10 @@ function RunInit () {
       response.on("data", function (chunk) {
         // 插入数据到数组
         chunks.push(chunk);
-        var data = chunks
         // 写入json方法
-        execute(writeJson, data);
+        execute(WriteJson, chunks);
         // 写入数据库
-        // execute(WriteSQL, chunks);
+        // WriteSQL(chunks, period);
       });
     });
     request.end();
@@ -46,7 +45,7 @@ function writeJson (data) {
   console.log('写入成功')
 }
 
-function WriteSQL (data) {
+function WriteSQL (data ,time) {
   var mysql  = require('mysql');
   var config = require('./config.js')
   // mysql 参数 
@@ -64,7 +63,8 @@ function WriteSQL (data) {
   connection.connect();
   // 插入数据
   var  addSql = 'INSERT INTO bitstamp_candles(exchange,start_at,end_at,price_open,price_high,price_low,price_close,volume_traded,trades_count,interval_at)' +
-  'VALUES("BitStamp",?,?,?,?,?,?,?,?,"1D")';
+  'VALUES("BitStamp",?,?,?,?,?,?,?,?,"'+ time +'")';
+  console.log(addSql)
   //执行
   var l = data.length
   for (var i = 0; i < l; ++i){
