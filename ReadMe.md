@@ -10,7 +10,8 @@
     user: 'username',              
     password: 'password',       
     port: '3306',                   
-    database: 'db' 
+    database: 'db',
+    key: 'your CoinAPI's key'
   }]
 
   module.exports.config = config;
