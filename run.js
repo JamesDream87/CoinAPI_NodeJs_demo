@@ -3,10 +3,11 @@ function RunInit () {
   var config = require('./config.js')
   var base = '/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/history?'
   var period = '1HRS'
-  var start = '2018-12-28T06:00:00'
-  var end = '2019-01-01T00:00:00'
-  // var start = getDay(-1, '-')
-  // var end = getDay(0, '-')
+  // 前期导入历史数据可以使用
+  // var start = '2018-12-28T06:00:00'
+  // var end = '2019-01-01T00:00:00'
+  var start = getDay(-1, '-')
+  var end = getDay(0, '-')
   var limit = 8670
 
   var request = https.request({
