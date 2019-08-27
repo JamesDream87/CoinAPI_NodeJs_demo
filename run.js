@@ -8,7 +8,7 @@ function RunInit () {
   // var end = '2019-01-01T00:00:00'
   var start = getDay(-1, '-')
   var end = getDay(0, '-')
-  var limit = 1
+  var limit = 24
 
   var request = https.request({
     "method": "GET",
@@ -19,10 +19,10 @@ function RunInit () {
       var chunks = [];
       // 获得数据
       response.on("data", function (chunk) {
-        // 插入数据到数组
-        chunks.push(chunk);
+        // 插入数据到数组,此处chunks已经废除，因为此处有bug,会导致添加很多多余的逗号
+        // chunks.push(chunk);
         // 写入json方法
-        execute(WirteLog, chunk);
+        execute(WriteJson, chunk);
         // 写入数据库
         // WriteSQL(chunks, period);
       });
@@ -34,10 +34,10 @@ function execute (someFunction, value) {
   someFunction(value);
 }
 
-function writeJson (data) {
+function WriteJson (data) {
   var fs = require("fs");
   // 写入json文件
-  fs.writeFile('test.json', data,  function(err) {
+  fs.appendFile('test.json', data,  function(err) {
     if (err) {
         return console.error(err);
     }
