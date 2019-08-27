@@ -22,7 +22,7 @@ function RunInit () {
         // 插入数据到数组
         chunks.push(chunk);
         // 写入json方法
-        execute(WriteJson, chunks);
+        execute(WirteLog, chunk);
         // 写入数据库
         // WriteSQL(chunks, period);
       });
