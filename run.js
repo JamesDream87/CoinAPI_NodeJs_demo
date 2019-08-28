@@ -61,7 +61,7 @@
     // 新建连接
     connection.connect();
     // 插入数据
-    var  addSql = 'INSERT INTO bitstamp_candles1(exchange,start_at,end_at,price_open,price_high,price_low,price_close,volume_traded,trades_count,interval_at)' +
+    var  addSql = 'INSERT INTO bitstamp_candles1(exchange,start_at,end_at,open,high,low,close,volume_traded,trades_count,interval_at)' +
     'VALUES("BitStamp",?,?,?,?,?,?,?,?,"'+ time +'")';
     //执行
     var l = data.length
