@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
   database: config.config[0].database 
 });
 // 读取Json文件
-var data = fs.readFileSync('./DataFeed/BTC-1H-2019.json');
+var data = fs.readFileSync('test.json');
 
 // 转为json格式
 data = JSON.parse(data)
